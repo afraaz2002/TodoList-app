@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo Application</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="styles/style.css">
+
+</head>
+
+<body>
+  <div class="bg"> </div>
+  <div class="container">
+    <div class="content">
+      <h1 id="heading"> <%= title %> list</h1>
+      <form action="/" method="post" class="todo-add">
+        <input type="text" id="newTodoInput" placeholder="Create a new todo..." name="newTodo" required>
+        <button id="addTodoBtn" name="newList" value= <%= title %> >Add</button>
+      </form>
+
+      <div class="todo-list">
+        <% if(todos.length != 0) { todos.forEach(todo=> { %>
+
+          <form action="/delete" method="post" class="todo">
+            <button class="todoBtn" onclick=editTodo(event) name="deleteTodo" value=<%=todo._id%>>
+              <i class="fas fa-check"></i>
+              <i class="fas fa-times"></i>
+            </button>
+             <input type="hidden" name="listName" value= <%= title %> >
+            <p class="todoContent">
+              <%= todo.name %>
+            </p>
+          </form>
+
+          <% }); } else{%>
+            <div id="noTodo">
+            <h1  style="color: rgb(129, 0, 250);">Your TodoList is empty ¯\_(ツ)_/¯ </h1>
+            <h2>Add some todos</h2>
+          </div>
+
+            <% } %>
+
+      </div>
+
+    </div>
+  </div>
+  <script>
+    let editTodo = (event) => {
+      let todo = event.currentTarget.parentNode;
+      todo.classList.toggle("done");
+    }
+  </script>
+
+</body>
+
+</html>
